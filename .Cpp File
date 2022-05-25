@@ -1,0 +1,54 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+class Employee {
+private:
+	string firstName;
+	string lastName;
+	int age;
+
+public:
+	Employee(string, string, int);
+
+	string getFname() {
+		return firstName;
+	}
+	string getLname() {
+		return lastName; 
+	}
+	int getAge() {
+		return age; 
+	}
+};
+
+Employee::Employee(string FName, string LName, int A) {
+	firstName = FName;
+	lastName = LName;
+	age = A;
+}
+
+void output(Employee E)
+{
+	cout << "First name: \t" << E.getFname() << "\nLast name: \t";
+	cout << E.getLname() << "\nAge: \t\t" << E.getAge() << endl;
+}
+
+
+int main() {
+
+	Employee Emp1("Elon", "Musk", 50);
+
+	fstream file;  
+	file.open("Employee", ios::ate);
+	cout << "File created" << endl << endl;
+
+	file.write((char*)&Emp1, sizeof(Emp1));
+	file.read((char*)&Emp1, sizeof(Emp1));
+	output(Emp1);
+
+	file.close();
+	
+	return 0;
+}
